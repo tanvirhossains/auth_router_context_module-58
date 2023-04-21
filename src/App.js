@@ -1,23 +1,62 @@
 import logo from './logo.svg';
 import './App.css';
+import Home from './Components/Home';
+import Header from './Components/Header';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Login from './Components/Login';
+import Register from './Components/Register';
+import Blog from './Components/Blog';
+import PrivateRoute from './Components/PrivateRoute';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Header />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "register",
+          element: <Register />,
+
+        },
+        {
+          path: "blog",
+          element: <PrivateRoute> <Blog /></PrivateRoute>,
+
+        },
+      ],
+    },
+  ]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <RouterProvider router={router}>
+        {/* <ToastContainer /> */}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        {/* Same as */}
+        <ToastContainer />
+      </RouterProvider>
     </div>
   );
 }
